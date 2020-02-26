@@ -1,18 +1,12 @@
 mod utils;
 
 use wasm_bindgen::prelude::*;
-use std::fmt;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
-#[wasm_bindgen]
-extern {
-    fn alert(s: &str);
-}
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -34,7 +28,7 @@ impl Universe {
         (row * self.width + column) as usize
     }
 
-    fn live_neightbor_count(&self, row: u32, column: u32) -> u8 {
+    fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
         let mut count = 0;
 
         let north = if row == 0 {
@@ -101,7 +95,7 @@ impl Universe {
                 for col in 0..self.width {
                     let idx = self.get_index(row, col);
                     let cell = self.cells[idx];
-                    let live_neighbors = self.live_neightbor_count(row, col);
+                    let live_neighbors = self.live_neighbor_count(row, col);
 
                     let next_cell = match (cell, live_neighbors) {
                         // live, < 2 neighbors: dies
@@ -189,20 +183,6 @@ impl Universe {
             let idx = self.get_index(row, col);
             self.cells[idx] = Cell::Alive;
         }
-    }
-}
-
-impl fmt::Display for Universe {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for line in self.cells.as_slice().chunks(self.width as usize) {
-            for &cell in line {
-                let symbol = if cell == Cell::Dead { '□' } else { '■' };
-                write!(f, "{}", symbol)?;
-            }
-            write!(f, "\n")?;
-        }
-
-        Ok(())
     }
 }
 
