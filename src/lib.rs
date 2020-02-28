@@ -1,4 +1,5 @@
 mod utils;
+mod quad_tree;
 
 use wasm_bindgen::prelude::*;
 
