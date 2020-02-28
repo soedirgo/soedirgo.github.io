@@ -1,1 +1,0 @@
-/Users/dan/Documents/work/soedirgo.github.io/target/wasm32-unknown-unknown/release/liblife.rlib: /Users/dan/Documents/work/soedirgo.github.io/src/lib.rs /Users/dan/Documents/work/soedirgo.github.io/src/utils.rs
